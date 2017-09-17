@@ -3,5 +3,4 @@ class API < Grape::API
   mount Login
 
   rescue_from :all
-  end
 end
