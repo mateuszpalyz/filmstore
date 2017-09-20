@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917135355) do
+ActiveRecord::Schema.define(version: 20170920182711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,28 @@ ActiveRecord::Schema.define(version: 20170917135355) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_authentication_tokens_on_user_id"
+  end
+
+  create_table "directors", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.date "birthday"
+    t.text "bio"
+    t.string "nationality"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "films", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.date "released_at"
+    t.bigint "user_id"
+    t.bigint "director_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["director_id"], name: "index_films_on_director_id"
+    t.index ["user_id"], name: "index_films_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,4 +64,6 @@ ActiveRecord::Schema.define(version: 20170917135355) do
   end
 
   add_foreign_key "authentication_tokens", "users"
+  add_foreign_key "films", "directors"
+  add_foreign_key "films", "users"
 end
