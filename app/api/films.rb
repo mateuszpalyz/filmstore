@@ -4,10 +4,12 @@ class Films < Grape::API
 
   desc 'Endpoints for films'
   resource :films do
+    before { authenticate! }
+
     desc 'Retrieve films'
     get do
       status 200
-      present Film.all, with: Entities::FilmsEntity
+      present Film.all.includes(:director), with: Entities::FilmsEntity
     end
 
     desc 'Retrieve single film'
