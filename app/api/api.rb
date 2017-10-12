@@ -3,6 +3,7 @@ class API < Grape::API
   mount Login
   mount Register
   mount Films
+  mount Rates
 
   rescue_from :all
 end
