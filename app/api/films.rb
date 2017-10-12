@@ -9,7 +9,7 @@ class Films < Grape::API
     desc 'Retrieve films'
     get do
       status 200
-      present Film.all.includes(:director), with: Entities::FilmsEntity
+      present Film.includes(:director, :rates), with: Entities::FilmsEntity, user_id: current_user.id
     end
 
     desc 'Retrieve single film'
