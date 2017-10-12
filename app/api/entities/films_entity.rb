@@ -1,6 +1,6 @@
 module Entities
   class FilmsEntity < Grape::Entity
-    expose :id, :title, :released_at, :director_name, :user_rate
+    expose :id, :title, :released_at, :director_name, :rate
 
     private
 
@@ -8,7 +8,7 @@ module Entities
       "#{object.director.first_name} #{object.director.last_name}"
     end
 
-    def user_rate
+    def rate
       object.rates.find_by(user_id: options[:user_id])&.value
     end
   end

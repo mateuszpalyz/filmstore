@@ -17,18 +17,19 @@ class Rates < Grape::API
 
     desc 'Update rate'
     params do
+      requires :film_id, type: Integer, desc: 'Film id'
       requires :value, type: Integer, desc: 'Value for given rating'
     end
-    put ':id' do
-      current_user.rates.find(params[:id]).update(value: params[:value])
+    put do
+      current_user.rates.find_by(film_id: params[:film_id]).update(value: params[:value])
     end
 
     desc 'Delete rate'
     params do
-      requires :id, type: Integer, desc: 'Rate id'
+      requires :film_id, type: Integer, desc: 'Film id'
     end
-    delete ':id' do
-      current_user.rates.find(params[:id]).destroy
+    delete do
+      current_user.rates.find_by(film_id: params[:film_id]).destroy
     end
   end
 end
