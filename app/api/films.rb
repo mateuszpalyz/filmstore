@@ -6,10 +6,13 @@ class Films < Grape::API
   resource :films do
     before { authenticate! }
 
-    desc 'Retrieve films'
+    desc 'Retrieve last 3 films rated by current user'
     get do
+      films = Film.includes(:director).joins(:rates).where('rates.user_id = ?', current_user.id)
+        .order('rates.updated_at DESC').limit(3)
+
       status 200
-      present Film.includes(:director, :rates), with: Entities::FilmsEntity, user_id: current_user.id
+      present films, with: Entities::FilmsEntity
     end
 
     desc 'Retrieve single film'
