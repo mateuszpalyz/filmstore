@@ -1,6 +1,6 @@
 module Entities
   class FilmsEntity < Grape::Entity
-    expose :id, :title, :released_at, :director_name, :rate
+    expose :id, :title, :released_at, :director_name, :image_url, :rate
 
     private
 
